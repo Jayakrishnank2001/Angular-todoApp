@@ -13,10 +13,10 @@
                 <div class="col-12 d-flex todo-single align-center" *ngFor="let todo of todoList; let i=index">
                     <input type="checkbox" class="col-1 todo-checkbox" [(ngModel)]="todo.value" (ngModelChange)="changeTodo(i)">
                     <p class="col-9 todo-elements">{{todo.content}}</p>
-                    <button type="button" class="btn btn-outline-light text-danger col-1 del-btn" [(ngModel)]="todo.value" (ngModelChange)="editTodo(i)">
+                    <button type="button" class="btn btn-outline-light text-danger col-1 del-btn" (click)="openEditModal(editModal,i,'todoList')">
                         <i class="bi bi-pencil"></i>
-                    </button>
-                    <button type="button" class="btn btn-outline-light text-danger col-1 del-btn" (click)="openModal(content,i,'todoList')">
+                      </button>
+                    <button type="button" class="btn btn-outline-light text-danger col-1 del-btn" (click)="openModal(reference,i,'todoList')">
                         <i class="bi bi-trash3"></i>
                     </button>
                 </div>
@@ -28,7 +28,7 @@
                 <div class="col-12 d-flex todo-single align-center" *ngFor="let todo of finishedList; let i=index">
                     <input type="checkbox" class="col-1 todo-checkbox" [(ngModel)]="todo.value" (ngModelChange)="changeFinished(i)">
                     <p class="col-9 todo-elements">{{todo.content}}</p>
-                    <button type="button" class="btn btn-outline-light text-danger col-1 del-btn" (click)="openModal(content,i,'finishedList')">
+                    <button type="button" class="btn btn-outline-light text-danger col-1 del-btn" (click)="openModal(reference,i,'finishedList')">
                         <i class="bi bi-trash3"></i>
                     </button>
                 </div>
@@ -39,7 +39,7 @@
 </div>
 
 <!--Delete Modal-->
-<ng-template #content let-modal>
+<ng-template #reference let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-title">Delete</h4>
         <button
@@ -57,3 +57,28 @@
         <button type="button" class="btn btn-danger" (click)="modal.close('Ok click')">Ok</button>
     </div>
 </ng-template>
+
+
+<!--Edit Modal-->
+
+<ng-template #editModal let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Update Todo</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form>
+            <div class="mb-3">
+              <div class="input-group">
+                <input type="text" class="form-control" [value]="editedTodo" (input)="onInputChange($event)">
+              </div>
+            </div>
+        </form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="editTodo()">Save</button>
+	</div>
+</ng-template>
+
+
+

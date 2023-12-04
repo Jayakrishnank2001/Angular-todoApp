@@ -1,4 +1,4 @@
 export class Todo{
-    content!:String
+    content!:string
     value!:Boolean
 }
